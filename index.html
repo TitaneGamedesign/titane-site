@@ -371,14 +371,16 @@ form input, form textarea, form button {
   action="https://formspree.io/f/xldnwozb"
   method="POST"
 >
-  <label data-fr="Votre adresse mail" data-en="Your email">
-    Votre adresse mail:
-    <input type="email" name="email">
-  </label>
-  <label data-fr="Votre message" data-en="Your message">
-    Votre message:
-    <textarea name="message"></textarea>
-  </label>
+<label>
+  <span data-fr="Votre adresse mail:" data-en="Your email:">Votre adresse mail:</span>
+  <input type="email" name="email">
+</label>
+
+<label>
+  <span data-fr="Votre message:" data-en="Your message:">Votre message:</span>
+  <textarea name="message"></textarea>
+</label>
+
   <!-- your other form fields go here -->
   <button type="submit">Send</button>
 </form>
@@ -403,6 +405,10 @@ form input, form textarea, form button {
   </div>
 
   <script>
+    window.onload = () => {
+  if (navigator.language.startsWith('en')) toggleLang();
+};
+
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const closeBtn = document.getElementById('lightbox-close');
