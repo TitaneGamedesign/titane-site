@@ -225,6 +225,18 @@
   width: 24px;
   height: auto;
 }
+form label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  color: #cfd8dc;
+}
+form input, form textarea, form button {
+  width: 100%;
+  box-sizing: border-box;
+}
 
 
   </style>
@@ -306,12 +318,21 @@
 
   <section id="contact">
     <h2 data-fr="Contact" data-en="Contact">Contact</h2>
-    <form action="https://formsubmit.co/titane.gamedesign@gmail.com" method="POST">
-      <input type="text" placeholder="Nom" data-fr="Nom" data-en="Name" required>
-      <input type="email" placeholder="Email" required>
-      <textarea rows="5" placeholder="Votre message..." data-fr="Votre message..." data-en="Your message..." required></textarea>
-      <button type="submit" id="submit-button" data-fr="Envoyer" data-en="Send">Envoyer</button>
-    </form>
+    <form
+  action="https://formspree.io/f/xldnwozb"
+  method="POST"
+>
+  <label>
+    Your email:
+    <input type="email" name="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message"></textarea>
+  </label>
+  <!-- your other form fields go here -->
+  <button type="submit">Send</button>
+</form>
   </section>
 
   <footer>
