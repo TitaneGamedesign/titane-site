@@ -237,8 +237,52 @@ form input, form textarea, form button {
   width: 100%;
   box-sizing: border-box;
 }
+.download-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 
+#download-btn::after {
+  content: " \25BC"; /* chevron ▼ */
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+}
+
+.download-options {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.95) translateY(-10px);
+  transition: all 0.3s ease;
+  position: absolute;
+  background-color: #1a1c22;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  padding: 0.5rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  z-index: 100;
+}
+
+.download-options.show {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+}
+
+.download-options a {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #e0f7fa;
+  transition: background 0.3s;
+}
+
+.download-options a:hover {
+  background-color: #0077c2;
+  color: #fff;
+}
   </style>
 </head>
 <body>
@@ -266,11 +310,16 @@ form input, form textarea, form button {
       Plongez dans l'univers mystérieux d'Urban Legends, le dernier jeu vidéo développé par Titane Gamedesign Studio. 
       Découvrez un monde rempli d'obstacles, de créatures énigmatiques, et d'une ambiance urbaine saisissante.
     </p>
-    <div style="text-align: center;">
-      <a class="cta-button" id="download-button" href="https://drive.google.com/uc?export=download&id=1pR1u45mtSRyjmE64kLZb1wP0QluJEMjh">
-        📥 Télécharger le jeu
-      </a>
-    </div>
+    <div class="download-container" style="text-align: center;">
+  <button class="cta-button" id="download-btn">📥 Télécharger</button>
+  <div class="download-options" id="download-options">
+    <a href="lien-windows.exe">💻 Windows</a>
+    <a href="lien-macos.dmg">🍎 MacOS</a>
+    <a href="lien-linux.AppImage">🐧 Linux</a>
+    <a href="https://drive.google.com/file/d/1pR1u45mtSRyjmE64kLZb1wP0QluJEMjh/view?usp=sharing">📱 Android</a>
+  </div>
+</div>
+
     <div class="video-container">
       <iframe src="https://www.youtube.com/embed/2Fk8xb2Hjao?si=PNjwjPc2HqFKCeh8" title="Bande-annonce Urban Legends" frameborder="0" allowfullscreen></iframe>
     </div>
@@ -322,12 +371,12 @@ form input, form textarea, form button {
   action="https://formspree.io/f/xldnwozb"
   method="POST"
 >
-  <label>
-    Your email:
+  <label data-fr="Votre adresse mail" data-en="Your email">
+    Votre adresse mail:
     <input type="email" name="email">
   </label>
-  <label>
-    Your message:
+  <label data-fr="Votre message" data-en="Your message">
+    Votre message:
     <textarea name="message"></textarea>
   </label>
   <!-- your other form fields go here -->
@@ -392,6 +441,21 @@ form input, form textarea, form button {
         langButton.innerText = 'EN';
       }
     }
+  const downloadBtn = document.getElementById('download-btn');
+  const options = document.getElementById('download-options');
+
+  downloadBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    options.classList.toggle('show');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!downloadBtn.contains(e.target) && !options.contains(e.target)) {
+      options.classList.remove('show');
+    }
+  });
+</script>
+
   </script>
 </body>
 </html>
