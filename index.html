@@ -283,6 +283,29 @@ form input, form textarea, form button {
   background-color: #0077c2;
   color: #fff;
 }
+#lightbox-prev, #lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1001;
+  user-select: none;
+}
+#lightbox-prev:hover, #lightbox-next:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+#lightbox-prev {
+  left: 30px;
+}
+#lightbox-next {
+  right: 30px;
+}
+
   </style>
 </head>
 <body>
@@ -328,10 +351,19 @@ form input, form textarea, form button {
   <section id="gallery">
     <h2 data-fr="Galerie" data-en="Gallery">Galerie</h2>
     <div class="gallery">
-      <img src="game_image_1 (1).png" alt="Capture d'écran 1">
+      <img src="" alt="Capture d'écran 1">
       <img src="game_image_2.png" alt="Capture d'écran 2">
       <img src="game_image_3.png" alt="Capture d'écran 3">
     </div>
+    <div id="lightbox">
+  <span id="lightbox-close">&times;</span>
+  <span id="lightbox-prev">&#10094;</span> <!-- ‹ -->
+  <img id="lightbox-img" src="game_image_1 (1).png" alt="Image 1">
+  <img id="lightbox-img" src="game_image_2.png" alt="Image 2">
+  <img id="lightbox-img" src="game_image_3.png" alt="Image3">
+  <span id="lightbox-next">&#10095;</span> <!-- › -->
+</div>
+
   </section>
 
   <section id="team">
@@ -452,6 +484,33 @@ form input, form textarea, form button {
       options.classList.remove('show');
     }
   });
+    const galleryImages = Array.from(document.querySelectorAll('.gallery img'));
+let currentImageIndex = 0;
+
+galleryImages.forEach((img, index) => {
+  img.addEventListener('click', () => {
+    currentImageIndex = index;
+    showImage(currentImageIndex);
+    lightbox.classList.add('active');
+  });
+});
+
+function showImage(index) {
+  lightboxImg.src = galleryImages[index].src;
+}
+
+document.getElementById('lightbox-prev').addEventListener('click', (e) => {
+  e.stopPropagation();
+  currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+  showImage(currentImageIndex);
+});
+
+document.getElementById('lightbox-next').addEventListener('click', (e) => {
+  e.stopPropagation();
+  currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+  showImage(currentImageIndex);
+});
+
 </script>
 
   </script>
